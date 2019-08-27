@@ -316,7 +316,7 @@
 										"fileUris": [
 											"[uri(deployment().properties.templateLink.uri, 'cn-setup.sh')]"
 										],
-										"commandToExecute": "[concat('bash cn-setup.sh ', variables('jumpBoxName'), ' ', parameters('Username'))]",
+										"commandToExecute": "[concat('source cn-setup.sh ', variables('jumpBoxName'), ' ', parameters('Username'))]",
 										"timestamp": 12345
 									}
 								}
