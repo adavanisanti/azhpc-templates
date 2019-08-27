@@ -30,8 +30,14 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
 
-module load gcc-8.2.0
-module load mpi/impi_2018.4.274
+export PATH=/opt/gcc-8.2.0/bin:$PATH
+export LD_LIBRARY_PATH=/opt/gcc-8.2.0/lib64:$LD_LIBRARY_PATH
+export CC=/opt/gcc-8.2.0/bin/gcc
+export GCC=/opt/gcc-8.2.0/bin/gcc
+
+export PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/bin:$PATH
+export LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/lib:$LD_LIBRARY_PATH
+
 
 INSTALL_PREFIX=/opt
 
