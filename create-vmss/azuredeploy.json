@@ -11,7 +11,7 @@
 			],
 			"type": "String",
 			"metadata": {
-				"description": "ravi-Which instance would you like to deploy to? Not all VMs are available in all regions"
+				"description": "raviii-Which instance would you like to deploy to? Not all VMs are available in all regions"
 			}
 		},
 		"VMSS Name": {
