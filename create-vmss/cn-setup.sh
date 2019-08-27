@@ -30,8 +30,8 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
 
-/usr/bin/modulecmd bash load gcc-8.2.0
-/usr/bin/modulecmd bash load mpi/impi_2018.4.274
+module load gcc-8.2.0
+module load mpi/impi_2018.4.274
 
 INSTALL_PREFIX=/opt
 
