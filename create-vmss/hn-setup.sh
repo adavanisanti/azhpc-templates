@@ -78,3 +78,5 @@ cp -r * /home/$USER/scripts/
 chmod +x /home/$USER/scripts/*
 chown $USER:$USER /home/$USER/scripts
 cd / && rm -rf /tmp/*
+
+touch /home/$USER/ravi-edits 
