@@ -44,6 +44,7 @@ INSTALL_PREFIX=/opt
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p ${INSTALL_PREFIX}/miniconda3
 rm -rf Miniconda3-latest-Linux-x86_64.sh
+chown -R $USER:$USER /${INSTALL_PREFIX}/miniconda3/
 
 conda_path="export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH"
 export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
