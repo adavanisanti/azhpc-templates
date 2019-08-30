@@ -16,7 +16,7 @@ $HEADNODE:/home    /home   nfs defaults 0 0
 $HEADNODE:/mnt/resource/scratch    /mnt/resource/scratch   nfs defaults 0 0
 EOF
 
-until yum install -y -q nfs-utils
+until yum install -y -q nfs-utils htop
 do
     sleep 10
 done
@@ -51,10 +51,12 @@ export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
 
 CONDA_ENV_NAME=decathlon
 
-conda create -y --name $CONDA_ENV_NAME -n decathlon pip python=3.6 tensorflow=1.11 keras tqdm h5py psutil
-${INSTALL_PREFIX}/miniconda3/envs/$CONDA_ENV_NAME/bin/pip install --no-cache-dir nibabel horovod
+conda create -y --name $CONDA_ENV_NAME pip python=3.6 tensorflow=1.11 keras tqdm h5py psutil
+${INSTALL_PREFIX}/miniconda3/envs/$CONDA_ENV_NAME/bin/pip install --no-cache-dir nibabel horovod gdown
 
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
 echo "module load gcc-8.2.0" >> /home/$USER/.bashrc    
 echo "module load mpi/impi_2018.4.274" >> /home/$USER/.bashrc  
+
+git clone https://github.com/IntelAI/unet /home/$USER/unet
 
