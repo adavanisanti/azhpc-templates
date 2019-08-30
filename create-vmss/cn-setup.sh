@@ -49,9 +49,12 @@ chown -R $USER:$USER /${INSTALL_PREFIX}/miniconda3/
 conda_path="export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH"
 export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
 
-conda create -y --name intel-tf-py36 -c intel python=3 pip 
-${INSTALL_PREFIX}/miniconda3/envs/intel-tf-py36/bin/pip install --no-cache-dir intel-tensorflow horovod
+CONDA_ENV_NAME=decathlon
+
+conda create -y --name $CONDA_ENV_NAME -n decathlon pip python=3.6 tensorflow=1.11 keras tqdm h5py psutil
+${INSTALL_PREFIX}/miniconda3/envs/$CONDA_ENV_NAME/bin/pip install --no-cache-dir nibabel horovod
 
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
 echo "module load gcc-8.2.0" >> /home/$USER/.bashrc    
 echo "module load mpi/impi_2018.4.274" >> /home/$USER/.bashrc  
+
