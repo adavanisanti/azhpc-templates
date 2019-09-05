@@ -57,6 +57,14 @@ ${INSTALL_PREFIX}/miniconda3/envs/$CONDA_ENV_NAME/bin/pip install --no-cache-dir
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
 echo "module load gcc-8.2.0" >> /home/$USER/.bashrc    
 echo "module load mpi/impi_2018.4.274" >> /home/$USER/.bashrc  
+echo "conda activate $CONDA_ENV_NAME " >> /home/$USER/.bashrc  
 
 git clone https://github.com/IntelAI/unet /home/$USER/unet
+
+mkdir -p /mnt/resource/scratch/data
+cd /mnt/resource/scratch/data
+
+#download  BraTS subset Task01_BrainTumour.tar
+gdown https://drive.google.com/uc?id=1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU  
+tar -xf Task01_BrainTumour.tar
 
