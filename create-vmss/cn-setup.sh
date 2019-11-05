@@ -39,6 +39,8 @@ export PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/bin:$PATH
 export LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/lib:$LD_LIBRARY_PATH
 
 
+# Install miniconda3
+
 INSTALL_PREFIX=/opt
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -49,9 +51,20 @@ chown -R $USER:$USER /${INSTALL_PREFIX}/miniconda3/
 conda_path="export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH"
 export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
 
-conda create -y --name intel-tf-py36 -c intel python=3 pip 
-${INSTALL_PREFIX}/miniconda3/envs/intel-tf-py36/bin/pip install --no-cache-dir intel-tensorflow horovod
+# Create TF conda environment
+CONDA_ENV_NAME=intel-tf-py36
+TF_VER=1.13.2
 
+conda create -y --name $CONDA_ENV_NAME -c intel pip python=3.6
+${INSTALL_PREFIX}/miniconda3/envs/intel-tf-py36/bin/pip install --no-cache-dir intel-tensorflow==${TF_VER} horovod gdown
+
+# Setup environment when user logs in by setting .bashrc profile
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
-echo "module load gcc-8.2.0" >> /home/$USER/.bashrc    
-echo "module load mpi/impi_2018.4.274" >> /home/$USER/.bashrc  
+echo "module load gcc-8.2.0" >> /home/$USER/.bashrc
+echo "module load mpi/impi_2018.4.274" >> /home/$USER/.bashrc
+echo "conda activate $CONDA_ENV_NAME " >> /home/$USER/.bashrc
+
+# GIT clone TF benchmarks repo
+git clone -b cnn_tf_v1.13_compatible  https://github.com/tensorflow/benchmarks.git /home/$USER/benchmarks
+
+

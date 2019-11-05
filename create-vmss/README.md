@@ -1,11 +1,11 @@
 # Create Virtual Machine Scale Set using SR-IOV enabled Azure HPC VMs
 
 
-This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview) using the SR-IOV enabled Azure VM types. 
+This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview) using the SR-IOV enabled Azure VM types.
 
 Click on the following **Deploy to Azure** link to start your deployment.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Fmaster%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Ftf-cnn-bench%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png" />
 </a>
 
