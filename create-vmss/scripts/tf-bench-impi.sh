@@ -13,13 +13,13 @@
 
 NUM_NODES=${1:-1}
 WORKERS_PER_SOCKET=${2:-1}
-BATCH_SIZE=${3:-32}
+BATCH_SIZE=${3:-64}
 FABRIC=${4:-sock}
 
 NUM_WARMUP_BATCHES=0
 NUM_BATCHES=50
-#MODEL=resnet50
-MODEL=alexnet
+MODEL=resnet50
+#MODEL=alexnet
 INTER_T=2
 
 HOST_FILE="/home/$USER/hostiplist"
