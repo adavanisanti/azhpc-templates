@@ -37,6 +37,7 @@ GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
 
 IMPI_VER=2019
 
+# Setup environment when user logs in by setting .bashrc profile
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
