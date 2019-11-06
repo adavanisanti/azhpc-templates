@@ -79,6 +79,10 @@ cd azhpc-templates/create-vmss/scripts/
 mkdir -p /home/$USER/scripts
 cp -r * /home/$USER/scripts/
 chmod +x /home/$USER/scripts/*
-chown $USER:$USER /home/$USER/scripts
+chown -R $USER:$USER /home/$USER/scripts
 cd / && rm -rf /tmp/*
+
+# GIT clone TF benchmarks repo
+git clone -b cnn_tf_v1.13_compatible  https://github.com/tensorflow/benchmarks.git /home/$USER/benchmarks
+chown -R $USER:$USER /home/$USER/benchmarks
 

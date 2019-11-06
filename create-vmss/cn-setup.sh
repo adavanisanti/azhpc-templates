@@ -35,7 +35,7 @@ GCC_VER=9.2.0
 IMPI_VER=2019
 CONDA_ENV_NAME=intel-tf-py36
 TF_VER=1.13.2
-HVD_VER=0.18.2
+HVD_VER=0.18.0
 
 export PATH=/opt/gcc-${GCC_VER}/bin:$PATH
 export LD_LIBRARY_PATH=/opt/gcc-${GCC_VER}/lib64:$LD_LIBRARY_PATH
@@ -67,7 +67,5 @@ CONDA_ACTIVATE_CMD="conda activate $CONDA_ENV_NAME"
 grep -qF -- "$CONDA_ACTIVATE_CMD" "/home/$USER/.bashrc" || echo "$CONDA_ACTIVATE_CMD" >> "/home/$USER/.bashrc"
 
 
-# GIT clone TF benchmarks repo
-git clone -b cnn_tf_v1.13_compatible  https://github.com/tensorflow/benchmarks.git /home/$USER/benchmarks
-chown -R $USER:$USER /home/$USER/benchmarks
+
 

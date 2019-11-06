@@ -39,7 +39,7 @@ DATA_ARG="--data_dir=${TF_RECORDS_DIR} --data_name=imagenet "
 
 if [ ! -d "$TF_RECORDS_DIR" ]; then
     echo "Imagenet sample dataset directory not found at $TF_RECORDS_DIR . Will benchmark with dummy/synthetic data..."
-    DATA_ARG="--data_dir=None "
+    DATA_ARG="--data_name=imagenet "
     sleep 3s
 fi
 
