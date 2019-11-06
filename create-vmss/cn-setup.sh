@@ -26,6 +26,3 @@ mount -a
 
 # Don't require password for HPC user sudo
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-
-
