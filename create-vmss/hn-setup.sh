@@ -35,24 +35,24 @@ systemctl restart nfs-server
 USER=$2
 GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
 
+IMPI_VER=2019
+CONDA_ENV_NAME=intel-tf-py36
+
+# Setup environment when user logs in by setting .bashrc profile
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
+module load mpi/impi-${IMPI_VER}
+source /opt/intel/compilers_and_libraries/linux/mpi/intel64/bin/mpivars.sh
+conda activate $CONDA_ENV_NAME
 EOF
 
 # Load corresponding MPI library (based on branch name)
 MPI_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/mpi/ -iname ${githubBranch}-*`)
 
-IMPI_VER=2019
-CONDA_ENV_NAME=intel-tf-py36
-
-# Setup environment when user logs in by setting .bashrc profile
 if [[ $MPI_MODULE_NAME ]]; then
     cat << EOF >> /home/$USER/.bashrc
 module load mpi/${MPI_MODULE_NAME}
-module load mpi/impi-${IMPI_VER}
-source /opt/intel/compilers_and_libraries/linux/mpi/intel64/bin/mpivars.sh
-conda activate $CONDA_ENV_NAME
 EOF
 fi
 
