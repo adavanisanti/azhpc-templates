@@ -62,10 +62,10 @@ ${INSTALL_PREFIX}/miniconda3/envs/${CONDA_ENV_NAME}/bin/pip install --no-cache-d
 
 # Setup environment when user logs in by setting .bashrc profile
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
-echo "module load gcc-${GCC_VER}" >> /home/$USER/.bashrc
-echo "module load mpi/impi-${IMPI_VER}" >> /home/$USER/.bashrc
-echo "source /opt/intel/compilers_and_libraries/linux/mpi/intel64/bin/mpivars.sh" >> /home/$USER/.bashrc
-echo "conda activate $CONDA_ENV_NAME " >> /home/$USER/.bashrc
+# Only one compute node need to write the conda_activate_cmd, as .bashrc is a shared file.
+CONDA_ACTIVATE_CMD="conda activate $CONDA_ENV_NAME"
+grep -qF -- "$CONDA_ACTIVATE_CMD" "/home/$USER/.bashrc" || echo "$CONDA_ACTIVATE_CMD" >> "/home/$USER/.bashrc"
+
 
 # GIT clone TF benchmarks repo
 git clone -b cnn_tf_v1.13_compatible  https://github.com/tensorflow/benchmarks.git /home/$USER/benchmarks
