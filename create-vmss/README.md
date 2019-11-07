@@ -78,7 +78,7 @@ status=OK;hosts=2;sshin=2
 ```
 
 ### Step 3: Launch Benchmarks
-`~/scripts/tf-bench-impi.sh` is the script to launch the benchmarks. Usage is:
+`~/scripts/tf-bench-impi.sh` is the script to launch the benchmarks. This will launch `resnet50` model training for 100 batches with 50 warmup batches. [Modify the script here](scripts/tf-bench-impi.sh#L23) to change either the model or number of batches. Benchmark usage is:
 ```
 ./tf-bench-impi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
 ```
