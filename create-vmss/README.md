@@ -1,10 +1,17 @@
-# Create Virtual Machine Scale Set using SR-IOV enabled Azure HPC VMs
-
+# Tensorflow benchmarking by creating Virtual Machine Scale Set using SR-IOV enabled Azure HPC VMs
 
 This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview) using the SR-IOV enabled Azure VM types.
 
-Click on the following **Deploy to Azure** link to start your deployment.
+The deployed VM's will have environment ready with
+- Intel-Tensorflow v1.13.2
+- Horovod v0.18.0
+- Intel MPI 2019 Update 5
+- Conda environment named: intel-tf-py36
+- [Tensorflow CNN Benchmarks compatible with TF v1.13](https://github.com/tensorflow/benchmarks/tree/cnn_tf_v1.13_compatible/scripts/tf_cnn_benchmarks) 
+- [Distributed Training Benchmark script](scripts/tf-bench-impi.sh) Refer to [instructions here](#step-3-launch-benchmarks) to launch benchmarks.
 
+
+Click on the following **Deploy to Azure** link to start your deployment.
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Ftf-bench-impi%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png" />
 </a>
@@ -29,17 +36,70 @@ With this deployment, a head node and a VMSS are created.
 
 ### Head Node
 
-The head node can be identified as "`<vmss-name>-hd"`. The RSA Public Key is added to the `.ssh/authorized_keys` of the head node.
+The head node can be identified as "`<vmss-name>-hd`". The RSA Public Key is added to the `.ssh/authorized_keys` of the head node.
 
 ### Home Folder
 
-The `/home` folder is mounted over NFS and is hosted by the head node. Review `/etc/exports/ for more details.
+The `/home` folder is mounted over NFS and is hosted by the head node. Review `/etc/exports/` for more details.
+All the installations (miniconda, tensorflow, horovod) happen in the `/home/<user>` folder which is synced across all compute nodes.
 
 ### Compute Nodes
 
 Compute nodes are the actual VMSS. Run the `generateHostFile` script under `/home/<user>/scripts` folder to generate a list of compute nodes that are part of this VMSS. The hostfile will be generated under user's home folder.
 
 *Note*: Please review [`hn-setup.sh`](hn-setup.sh) and [`cn-setup.sh`](cn-setup.sh) for more details on how the head node and compute nodes are configured.
+
+## Running Benchmarks
+
+### Step 1: Login into the "Head Node"
+In the Azure portal, go to `Virtual Machines` and click on the "`<vmss-name>-hd`" VM. Find the public IP address and login via SSH using the private key corresponding to the public key used in the template during the launch. 
+
+Once you login to the head node, you will be inside a conda envirnoment - `intel-tf-py36` . See the following example.
+```
+(intel-tf-py36) [azuser@tfbench-hd ~]$ 
+```
+
+### Step 2: Create host file 
+ Generate a host file with names and private IP's of all the compute nodes. This is create 2 files in your home folder. The benchmark script will use the `/home/<user>/hostiplist` file.
+
+```
+cd ~/scripts
+./generateHostFile
+```
+Sample output:
+```
+(intel-tf-py36) [azuser@tfbench-hd ~]$ cd scripts/
+
+(intel-tf-py36) [azuser@tfbench-hd scripts]$ ls
+base36ToDec       generateHostFile  tf-bench-impi.sh
+
+(intel-tf-py36) [azuser@tfbench-hd scripts]$ ./generateHostFile
+status=OK;hosts=2;sshin=2
+```
+
+### Step 3: Launch Benchmarks
+`~/scripts/tf-bench-impi.sh` is the script to launch the benchmarks. Usage is:
+```
+./tf-bench-impi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
+```
+ - Example using 4 nodes, 2 workers per sockets, BS=64, and infiniband
+```
+cd ~/scripts
+./tf-bench-impi.sh 4 2 64 ib
+```
+- Example using 4 nodes, 2 workers per sockets, BS=64, and sockets
+```
+cd ~/scripts
+./tf-bench-impi.sh 4 2 64 sock
+```
+
+- Example with defaults: NUM_NODES=1, WORKERS_PER_SOCKET=1, BATCH_SIZE=64, FABRIC=sock
+```
+cd ~/scripts
+./tf-bench-impi.sh
+```
+
+##
 
 ## SKU Availability and Locations
 
