@@ -1,25 +1,29 @@
 #!/bin/bash
 
 #usage: ./tf-bench-impi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
+# If WORKERS_PER_SOCKET=0, then WORKERS_PER_NODE=1
 
-# Ex:1 No args will use defaults: NUM_NODES=1, WORKERS_PER_SOCKET=1, BATCH_SIZE=32, FABRIC=sock
-# ./tf-bench-impi.sh
+# Example using 4 nodes, 2 workers per sockets, BS=64, and infiniband
+# ./tf-bench-impi.sh 4 2 64 ib
 
-#If WORKERS_PER_SOCKET=0, then WORKERS_PER_NODE=1
-# ./tf-bench-impi.sh 4 1 64 ib
+# Example using 4 nodes, 2 workers per sockets, BS=64, and sockets
+# ./tf-bench-impi.sh 4 2 64 sock
+
 # Save the logs
-# ./tf-bench-impi.sh 2 1 64 ib 2>&1 | tee tfmn-2n-64b-ib.log
+# ./tf-bench-impi.sh 4 2 64 ib 2>&1 | tee tfmn-2n-64b-ib.log
 
+# Example with defaults: NUM_NODES=1, WORKERS_PER_SOCKET=1, BATCH_SIZE=64, FABRIC=sock
+# ./tf-bench-impi.sh
 
 NUM_NODES=${1:-1}
 WORKERS_PER_SOCKET=${2:-1}
-BATCH_SIZE=${3:-32}
+BATCH_SIZE=${3:-64}
 FABRIC=${4:-sock}
 
 NUM_WARMUP_BATCHES=0
 NUM_BATCHES=50
-#MODEL=resnet50
-MODEL=alexnet
+MODEL=resnet50
+#MODEL=alexnet
 INTER_T=2
 
 HOST_FILE="/home/$USER/hostiplist"
