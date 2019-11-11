@@ -7,12 +7,12 @@ The deployed VM's will have environment ready with
 - Horovod v0.18.0
 - Intel MPI 2019 Update 5
 - Conda environment named: intel-tf-py36
-- [Tensorflow CNN Benchmarks compatible with TF v1.13](https://github.com/tensorflow/benchmarks/tree/cnn_tf_v1.13_compatible/scripts/tf_cnn_benchmarks) 
+- [Tensorflow CNN Benchmarks compatible with TF v1.13](https://github.com/tensorflow/benchmarks/tree/cnn_tf_v1.13_compatible/scripts/tf_cnn_benchmarks)
 - [Distributed Training Benchmark script](scripts/tf-bench-impi.sh) Refer to [instructions here](#step-3-launch-benchmarks) to launch benchmarks.
 
 
 Click on the following **Deploy to Azure** link to start your deployment.
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Ftf-bench-impi%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Ftf-bench-ompi%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png" />
 </a>
 
@@ -52,14 +52,14 @@ Compute nodes are the actual VMSS. Run the `generateHostFile` script under `/hom
 ## Running Benchmarks
 
 ### Step 1: Login into the "Head Node"
-In the Azure portal, go to `Virtual Machines` and click on the "`<vmss-name>-hd`" VM. Find the public IP address and login via SSH using the private key corresponding to the public key used in the template during the launch. 
+In the Azure portal, go to `Virtual Machines` and click on the "`<vmss-name>-hd`" VM. Find the public IP address and login via SSH using the private key corresponding to the public key used in the template during the launch.
 
 Once you login to the head node, you will be inside a conda envirnoment - `intel-tf-py36` . See the following example.
 ```
-(intel-tf-py36) [azuser@tfbench-hd ~]$ 
+(intel-tf-py36) [azuser@tfbench-hd ~]$
 ```
 
-### Step 2: Create host file 
+### Step 2: Create host file
  Generate a host file with names and private IP's of all the compute nodes. This is create 2 files in your home folder. The benchmark script will use the `/home/<user>/hostiplist` file.
 
 ```

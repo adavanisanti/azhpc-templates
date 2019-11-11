@@ -35,14 +35,13 @@ systemctl restart nfs-server
 USER=$2
 GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
 
-IMPI_VER=2019
+OMPI_VERSION=4.0.2
 
 # Setup environment when user logs in by setting .bashrc profile
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
-module load mpi/impi-${IMPI_VER}
-source /opt/intel/compilers_and_libraries/linux/mpi/intel64/bin/mpivars.sh
+module load mpi/openmpi-${OMPI_VERSION}
 EOF
 
 # Load corresponding MPI library (based on branch name)
@@ -91,7 +90,7 @@ cd / && rm -rf /tmp/*
 
 INSTALL_PREFIX=/home/$USER/
 GCC_VER=9.2.0
-IMPI_VER=2019
+
 CONDA_ENV_NAME=intel-tf-py36
 TF_VER=1.13.2
 HVD_VER=0.18.0
@@ -101,15 +100,14 @@ export LD_LIBRARY_PATH=/opt/gcc-${GCC_VER}/lib64:$LD_LIBRARY_PATH
 export CC=/opt/gcc-${GCC_VER}/bin/gcc
 export GCC=/opt/gcc-${GCC_VER}/bin/gcc
 
-export PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/bin:$PATH
-export LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries/linux/mpi/intel64/lib:$LD_LIBRARY_PATH
+export PATH=/opt/openmpi-${OMPI_VERSION}/bin:$PATH
+export LD_LIBRARY_PATH=/opt/openmpi-${OMPI_VERSION}/lib:$LD_LIBRARY_PATH
 
 # Install miniconda3
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p ${INSTALL_PREFIX}/miniconda3
 rm -rf Miniconda3-latest-Linux-x86_64.sh
-chown -R $USER:$USER /${INSTALL_PREFIX}/miniconda3/
 
 conda_path="export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH"
 export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
@@ -117,6 +115,9 @@ export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
 # Create TF conda environment
 conda create -y --name $CONDA_ENV_NAME -c intel pip python=3.6
 ${INSTALL_PREFIX}/miniconda3/envs/${CONDA_ENV_NAME}/bin/pip install --no-cache-dir intel-tensorflow==${TF_VER} horovod==${HVD_VER} gdown
+
+# give the user full permission of conda env
+chown -R $USER:$USER /${INSTALL_PREFIX}/miniconda3/
 
 # Setup miniconda environment in .bashrc profile
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"

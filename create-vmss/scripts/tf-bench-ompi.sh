@@ -94,28 +94,36 @@ TF_ARGS=" \
  --horovod_device=cpu \
  --local_parameter_device=cpu "
 
-echo -e "Common Args: $args"
+echo -e "TF Common Args: $args"
 
 if [ "${FABRIC}" == "ib" ]; then
-    OFI_PROV='verbs;ofi_rxm'
+    FABRIC_ARGS="-mca pml ucx \
+    --mca btl ^vader,tcp,openib \
+    -mca coll_hcoll_enable 1 \
+    -x HCOLL_MAIN_IB=mlx5_0:1 \
+    -x UCX_NET_DEVICES=mlx5_0:1 \
+    -x UCX_IB_PKEY=`cat /sys/class/infiniband/mlx5_0/ports/1/pkeys/0 | sed 's/\(.\{2\}\)./\10/'` \
+    -x UCX_TLS=rc_x,sm,self "
 else
-    OFI_PROV=sockets
+    FABRIC_ARGS="-mca pml ^ucx "
 fi
 
-echo -e "TF Args: $FABRIC_ARGS"
+echo -e "Fabric Args: $FABRIC_ARGS"
 
-run_cmd="mpiexec.hydra \
--f ${HOST_FILE} \
--genv I_MPI_FABRICS shm:ofi \
--genv FI_PROVIDER ${OFI_PROV} \
--genv I_MPI_DEBUG 5 \
--np ${TOTAL_WORKERS} \
--ppn ${WORKERS_PER_NODE} \
--genv OMP_NUM_THREADS $OMP_NUM_THREADS \
--genv HOROVOD_FUSION_THRESHOLD 134217728 \
+run_cmd="mpirun \
+--oversubscribe -np ${TOTAL_WORKERS} \
+-hostfile ${HOST_FILE} \
+--map-by ppr:${WORKERS_PER_SOCKET}:socket:pe=${CORES_PER_WORKER} \
+${FABRIC_ARGS} \
+-x OMP_NUM_THREADS=$OMP_NUM_THREADS \
+-x HOROVOD_FUSION_THRESHOLD=134217728 \
+-x HOROVOD_MPI_THREADS_DISABLE=1 \
+-x PATH=$PATH \
+-x LD_LIBRARY_PATH=$LD_LIBRARY_PATH \
 python $TF_BENCH_SCRIPT_PATH \
 $TF_ARGS "
 
+echo "--------------------------"
 echo -e "$run_cmd"
 
 $run_cmd
