@@ -5,10 +5,10 @@ This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.co
 The deployed VM's will have environment ready with
 - Intel-Tensorflow v1.13.2
 - Horovod v0.18.0
-- Intel MPI 2019 Update 5
+- Open MPI 4.0.2
 - Conda environment named: intel-tf-py36
 - [Tensorflow CNN Benchmarks compatible with TF v1.13](https://github.com/tensorflow/benchmarks/tree/cnn_tf_v1.13_compatible/scripts/tf_cnn_benchmarks)
-- [Distributed Training Benchmark script](scripts/tf-bench-impi.sh) Refer to [instructions here](#step-3-launch-benchmarks) to launch benchmarks.
+- [Distributed Training Benchmark script](scripts/tf-bench-ompi.sh) Refer to [instructions here](#step-3-launch-benchmarks) to launch benchmarks.
 
 
 Click on the following **Deploy to Azure** link to start your deployment.
@@ -71,32 +71,32 @@ Sample output:
 (intel-tf-py36) [azuser@tfbench-hd ~]$ cd scripts/
 
 (intel-tf-py36) [azuser@tfbench-hd scripts]$ ls
-base36ToDec       generateHostFile  tf-bench-impi.sh
+base36ToDec       generateHostFile  tf-bench-ompi.sh
 
 (intel-tf-py36) [azuser@tfbench-hd scripts]$ ./generateHostFile
 status=OK;hosts=2;sshin=2
 ```
 
 ### Step 3: Launch Benchmarks
-`~/scripts/tf-bench-impi.sh` is the script to launch the benchmarks. This will launch `resnet50` model training for 100 batches with 50 warmup batches. [Modify the script here](scripts/tf-bench-impi.sh#L23) to change either the model or number of batches. Benchmark usage is:
+`~/scripts/tf-bench-ompi.sh` is the script to launch the benchmarks. This will launch `resnet50` model training for 100 batches with 50 warmup batches. [Modify the script here](scripts/tf-bench-ompi.sh#L23) to change either the model or number of batches. Benchmark usage is:
 ```
-./tf-bench-impi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
+./tf-bench-ompi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
 ```
  - Example using 4 nodes, 2 workers per sockets, BS=64, and infiniband
 ```
 cd ~/scripts
-./tf-bench-impi.sh 4 2 64 ib
+./tf-bench-ompi.sh 4 2 64 ib
 ```
 - Example using 4 nodes, 2 workers per sockets, BS=64, and sockets
 ```
 cd ~/scripts
-./tf-bench-impi.sh 4 2 64 sock
+./tf-bench-ompi.sh 4 2 64 sock
 ```
 
 - Example with defaults: NUM_NODES=1, WORKERS_PER_SOCKET=1, BATCH_SIZE=64, FABRIC=sock
 ```
 cd ~/scripts
-./tf-bench-impi.sh
+./tf-bench-ompi.sh
 ```
 
 ##
