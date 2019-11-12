@@ -13,9 +13,13 @@ The deployed VM's will have environment ready with
 
 
 Click on the following **Deploy to Azure** link to start your deployment.
+
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fravi9%2Fazhpc-templates%2Ftf-bench-ompi%2Fcreate-vmss%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png" />
 </a>
+
+#### **NOTE**: Setting up environment will take few minutes. Please login after about 10min. The head-node will be available for login, but installation will take some time. To check the installation status, see
+``` sudo cat /var/lib/waagent/custom-script/download/0/stdout ```
 
 ## Input Fields
 
