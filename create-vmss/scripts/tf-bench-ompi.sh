@@ -94,7 +94,7 @@ TF_ARGS=" \
  --horovod_device=cpu \
  --local_parameter_device=cpu "
 
-echo -e "TF Common Args: $args"
+echo -e "TF Common Args: $TF_ARGS"
 
 if [ "${FABRIC}" == "sock" ]; then
     FABRIC_ARGS="-x UCX_TLS=tcp "
