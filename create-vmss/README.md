@@ -1,3 +1,4 @@
+
 # Tensorflow benchmarking by creating Virtual Machine Scale Set using SR-IOV enabled Azure HPC VMs
 
 This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview) using the SR-IOV enabled Azure VM types.
@@ -5,7 +6,7 @@ This will deploy a [Virtual Machine Scale Set (VMSS)](#https://docs.microsoft.co
 The deployed VM's will have environment ready with
 - Intel-Tensorflow v1.13.2
 - Horovod v0.18.0
-- Open MPI 4.0.2
+- Open MPI 4.0.2. See [instructions here](#using-hpc-x-mpi-library) to use HPC-X.
 - Conda environment named: intel-tf-py36
 - [Tensorflow CNN Benchmarks compatible with TF v1.13](https://github.com/tensorflow/benchmarks/tree/cnn_tf_v1.13_compatible/scripts/tf_cnn_benchmarks)
 - [Distributed Training Benchmark script](scripts/tf-bench-ompi.sh) Refer to [instructions here](#step-3-launch-benchmarks) to launch benchmarks.
@@ -98,6 +99,23 @@ cd ~/scripts
 cd ~/scripts
 ./tf-bench-ompi.sh
 ```
+
+### Using HPC-X MPI Library
+You will need to edit the `~/.bashrc` file to load the `HPC-X `library instead of `openmpi`.
+Open .bashrc  file for editing
+```
+ vi ~/.bashrc
+```
+**Replace** the following line
+```
+module load mpi/openmpi
+```
+with
+```
+module load mpi/hpcx
+```
+
+**Logout** of the terminal session and login again and launch the benchmarks like in [Step 3](#step-3-launch-benchmarks)
 
 ##
 

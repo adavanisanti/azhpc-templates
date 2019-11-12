@@ -41,7 +41,7 @@ OMPI_VERSION=4.0.2
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
-module load mpi/openmpi-${OMPI_VERSION}
+module load mpi/openmpi
 EOF
 
 # Load corresponding MPI library (based on branch name)

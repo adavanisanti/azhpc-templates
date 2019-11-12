@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#usage: ./tf-bench-impi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
+#usage: ./tf-bench-ompi.sh <NUM_NODES> <WORKERS_PER_SOCKET> <BATCH_SIZE> <FABRIC(ib,sock)>
 # If WORKERS_PER_SOCKET=0, then WORKERS_PER_NODE=1
 
 # Example using 4 nodes, 2 workers per sockets, BS=64, and infiniband
-# ./tf-bench-impi.sh 4 2 64 ib
+# ./tf-bench-ompi.sh 4 2 64 ib
 
 # Example using 4 nodes, 2 workers per sockets, BS=64, and sockets
-# ./tf-bench-impi.sh 4 2 64 sock
+# ./tf-bench-ompi.sh 4 2 64 sock
 
 # Save the logs
-# ./tf-bench-impi.sh 4 2 64 ib 2>&1 | tee tfmn-2n-64b-ib.log
+# ./tf-bench-ompi.sh 4 2 64 ib 2>&1 | tee tfmn-2n-64b-ib.log
 
 # Example with defaults: NUM_NODES=1, WORKERS_PER_SOCKET=1, BATCH_SIZE=64, FABRIC=sock
-# ./tf-bench-impi.sh
+# ./tf-bench-ompi.sh
 
 NUM_NODES=${1:-1}
 WORKERS_PER_SOCKET=${2:-1}
@@ -34,7 +34,7 @@ fi
 
 TF_BENCH_SCRIPT_PATH="/home/$USER/benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py"
 if [ ! -f "$TF_BENCH_SCRIPT_PATH" ]; then
-    echo "Unable to find TF Benchmarks at $TF_BENCH_SCRIPT_PATH . If you used the following to deploy, the benchmarks should have been installed. https://github.com/ravi9/azhpc-templates/blob/tf-bench-impi/create-vmss/README.md "
+    echo "Unable to find TF Benchmarks at $TF_BENCH_SCRIPT_PATH . If you used the following to deploy, the benchmarks should have been installed. https://github.com/ravi9/azhpc-templates/blob/tf-bench-ompi/create-vmss/README.md "
     exit 1
 fi
 
@@ -96,16 +96,10 @@ TF_ARGS=" \
 
 echo -e "TF Common Args: $args"
 
-if [ "${FABRIC}" == "ib" ]; then
-    FABRIC_ARGS="-mca pml ucx \
-    --mca btl ^vader,tcp,openib \
-    -mca coll_hcoll_enable 1 \
-    -x HCOLL_MAIN_IB=mlx5_0:1 \
-    -x UCX_NET_DEVICES=mlx5_0:1 \
-    -x UCX_IB_PKEY=`cat /sys/class/infiniband/mlx5_0/ports/1/pkeys/0 | sed 's/\(.\{2\}\)./\10/'` \
-    -x UCX_TLS=rc_x,sm,self "
+if [ "${FABRIC}" == "sock" ]; then
+    FABRIC_ARGS="-x UCX_TLS=tcp "
 else
-    FABRIC_ARGS="-mca pml ^ucx "
+    FABRIC_ARGS="-mca coll_hcoll_enable 1 "
 fi
 
 echo -e "Fabric Args: $FABRIC_ARGS"
