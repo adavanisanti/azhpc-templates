@@ -7,7 +7,8 @@
 			"allowedValues": [
 				"Standard_HC44rs",
 				"Standard_HB60rs",
-				"Standard_HB120rs_v2"
+				"Standard_HB120rs_v2",
+				"Standard_A4_v2"
 			],
 			"type": "String",
 			"metadata": {
