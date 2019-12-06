@@ -50,7 +50,7 @@ conda_path="export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH"
 export PATH=${INSTALL_PREFIX}/miniconda3/bin:$PATH
 
 conda create -y --name intel-tf-py36 -c intel python=3 pip 
-${INSTALL_PREFIX}/miniconda3/envs/intel-tf-py36/bin/pip install --no-cache-dir intel-tensorflow horovod
+#${INSTALL_PREFIX}/miniconda3/envs/intel-tf-py36/bin/pip install --no-cache-dir intel-tensorflow horovod
 
 su - $USER -c "${INSTALL_PREFIX}/miniconda3/bin/conda init bash"
 echo "module load gcc-8.2.0" >> /home/$USER/.bashrc    
