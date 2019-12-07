@@ -238,7 +238,9 @@
 					}
 				},
 				"storageProfile": {
-					"imageReference": "[variables('imageReference')]",
+					"imageReference": {
+						"id" : "[variables('imageReference')]"
+					},
 					"osDisk": {
 						"createOption": "FromImage"
 					}
@@ -302,7 +304,9 @@
 						"osDisk": {
 							"createOption": "FromImage"
 						},
-						"imageReference": "[variables('imageReference')]"
+						"imageReference": {
+							"id" : "[variables('imageReference')]"
+						}
 					},
 					"extensionProfile": {
 						"extensions": [
