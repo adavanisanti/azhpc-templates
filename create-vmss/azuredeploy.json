@@ -3,12 +3,12 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"VM SKU Type": {
-			"defaultValue": "Standard_HC44rs",
+			"defaultValue": "Standard_B2ms",
 			"allowedValues": [
 				"Standard_HC44rs",
 				"Standard_HB60rs",
 				"Standard_HB120rs_v2",
-				"Standard_A4_v2"
+				"Standard_B2ms"
 			],
 			"type": "String",
 			"metadata": {
