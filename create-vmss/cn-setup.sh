@@ -7,7 +7,7 @@ HEADNODE=$1
 USER=$2
 
 sed -i 's/^ResourceDisk.MountPoint=\/mnt\/resource$/ResourceDisk.MountPoint=\/mnt\/local_resource/g' /etc/waagent.conf
-umount /mnt/resource
+#umount /mnt/resource
 
 mkdir -p /mnt/resource/scratch
 
