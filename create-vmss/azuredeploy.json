@@ -306,7 +306,7 @@
 						},
 						"imageReference": {
 							"id" : "[variables('imageReference')]"
-						},
+						}
 					},
 					"extensionProfile": {
 						"extensions": [
