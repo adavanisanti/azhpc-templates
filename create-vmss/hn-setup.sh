@@ -12,9 +12,7 @@ mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
 
 apt-get -y update
-apt-get install -y -q nfs-utils nmap pdsh screen git
-# need to update for git work
-apt-get update -y nss curl libcurl
+apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
 
 # Host NFS
 cat << EOF >> /etc/exports
