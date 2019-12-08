@@ -16,8 +16,8 @@ $HEADNODE:/home    /home   nfs defaults 0 0
 $HEADNODE:/mnt/resource/scratch    /mnt/resource/scratch   nfs defaults 0 0
 EOF
 
-apt-get -y update
-apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
+killall apt apt-get
+apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
 
 mount -a
 
