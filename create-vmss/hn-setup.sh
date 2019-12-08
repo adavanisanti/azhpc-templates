@@ -11,8 +11,8 @@ localip=`echo $IP | cut --delimiter='.' -f -3`
 mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
 
-killall apt apt-get
-apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
+#killall apt apt-get
+#apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
 
 # Host NFS
 cat << EOF >> /etc/exports
@@ -22,12 +22,8 @@ EOF
 
 systemctl enable rpcbind
 systemctl enable nfs-server
-systemctl enable nfs-lock
-systemctl enable nfs-idmap
 systemctl start rpcbind
 systemctl start nfs-server
-systemctl start nfs-lock
-systemctl start nfs-idmap
 systemctl restart nfs-server
 
 USER=$2
