@@ -23,7 +23,7 @@ mount -a
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Start slurmd
-systemctl restart slurmd
+# systemctl restart slurmd
 systemctl restart munge
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
