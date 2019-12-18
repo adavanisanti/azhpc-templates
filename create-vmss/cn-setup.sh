@@ -19,10 +19,12 @@ EOF
 #apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
 
 mount -a
-
 # Don't require password for HPC user sudo
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# Start slurmd
+systemctl restart slurmd
+systemctl restart munge
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
 

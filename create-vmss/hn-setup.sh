@@ -25,6 +25,8 @@ systemctl enable nfs-server
 systemctl start rpcbind
 systemctl start nfs-server
 systemctl restart nfs-server
+systemctl restart slurmctld
+systemctl restart munge
 
 USER=$2
 GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
