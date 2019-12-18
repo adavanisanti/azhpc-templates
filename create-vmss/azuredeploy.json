@@ -100,7 +100,7 @@
 				"version": "latest"
 			}
 		},
-		"imageReference": "/subscriptions/3d1894df-2aa7-46bf-b301-60d13247b1e6/resourceGroups/packergroup/providers/Microsoft.Compute/images/imageupdate-image-20191207201918",
+		"imageReference": "/subscriptions/3d1894df-2aa7-46bf-b301-60d13247b1e6/resourceGroups/packergroup/providers/Microsoft.Compute/images/slurm-ctrl-image-20191217223353",
 		"computeApiVersion": "2016-04-30-preview",
 		"networkApiVersion": "2016-03-30",
 		"storageApiVersion": "2016-01-01",
