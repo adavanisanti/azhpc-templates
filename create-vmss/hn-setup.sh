@@ -50,15 +50,14 @@ chown $USER:$USER /home/$USER/.ssh/*
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Add script for generating hostfile
-cd /tmp
+cd /home/$USER
 git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git
 cd azhpc-templates/create-vmss/scripts/
-mkdir -p /home/$USER/scripts
-cp -r * /home/$USER/scripts/
-chmod +x /home/$USER/scripts/slurm.conf.sh
+chmod +x slurm.conf.sh
+
 chown $USER:$USER /home/$USER/scripts
 
-bash /home/$USER/scripts/slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
+bash slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
 # Daemon reload and restart slurmctld

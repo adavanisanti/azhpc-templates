@@ -32,7 +32,7 @@ echo `eval whoami` >> /home/$USER/whoami.log
 
 
 echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
-echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/slurm/cluster.conf
+echo `python /home/$USER/azhpc-templates/create-vmss/scripts/generate_node_conf.py` >> /mnt/resource/slurm/cluster.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
 # Restart munge slurmd
