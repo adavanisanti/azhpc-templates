@@ -2,6 +2,7 @@
 
 scriptUri=$1
 USER=$2
+
 githubUser=$(echo "$scriptUri" | cut -d'/' -f4)
 githubRepo=$(echo "$scriptUri" | cut -d'/' -f5)
 githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
@@ -56,7 +57,7 @@ git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git
 cd azhpc-templates/create-vmss/scripts/
 chmod +x slurm.conf.sh
 
-chown $USER:$USER /home/$USER/scripts
+chown $USER:$USER /home/$USER/azhpc-templates/create-vmss/scripts/
 
 bash slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
