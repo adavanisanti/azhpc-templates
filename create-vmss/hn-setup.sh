@@ -29,23 +29,6 @@ systemctl start nfs-server
 systemctl restart nfs-server
 systemctl restart munge
 
-USER=$2
-GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
-
-cat << EOF >> /home/$USER/.bashrc
-export WCOLL=/home/$USER/hostfile
-module load ${GCC_MODULE_NAME}
-EOF
-
-# Load corresponding MPI library (based on branch name)
-MPI_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/mpi/ -iname ${githubBranch}-*`)
-
-if [[ $MPI_MODULE_NAME ]]; then
-    cat << EOF >> /home/$USER/.bashrc
-module load mpi/${MPI_MODULE_NAME}
-EOF
-fi
-
 chown $USER:$USER /home/$USER/.bashrc
 touch /home/$USER/hostfile
 chown $USER:$USER /home/$USER/hostfile
