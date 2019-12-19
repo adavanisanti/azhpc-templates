@@ -8,8 +8,8 @@ githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
 
-mkdir -p /mnt/resource/scratch
-chmod a+rwx /mnt/resource/scratch
+mkdir -p /mnt/resource
+chmod a+rwx /mnt/resource
 
 #killall apt apt-get
 #apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
@@ -17,8 +17,10 @@ chmod a+rwx /mnt/resource/scratch
 # Host NFS
 cat << EOF >> /etc/exports
 /home $localip.*(rw,sync,no_root_squash,no_all_squash)
-/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)
+/mnt/resource $localip.*(rw,sync,no_root_squash,no_all_squash)
 EOF
+
+mkdir -p /mnt/resource/slurm
 
 systemctl enable rpcbind
 systemctl enable nfs-server
