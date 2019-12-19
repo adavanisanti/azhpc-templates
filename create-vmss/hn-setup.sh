@@ -63,5 +63,5 @@ bash slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
 # Daemon reload and restart slurmctld
-systemctl daemon-reload
-systemctl restart slurmctld
+#systemctl daemon-reload
+#systemctl restart slurmctld
