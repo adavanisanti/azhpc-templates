@@ -30,12 +30,14 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
 
+cp /home/$USER/scripts/slurmctld.service /etc/systemd/system/
 cp /home/$USER/scripts/slurmd.service /etc/systemd/system/
+
 echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
 echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/cluster.conf
 
 # Restart munge slurmd
-systemctl daemon-reload
-systemctl restart munge
-systemctl restart slurmd
+#systemctl daemon-reload
+#systemctl restart munge
+#systemctl restart slurmd
 
