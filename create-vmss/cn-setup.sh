@@ -38,5 +38,4 @@ cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 # Restart munge slurmd
 # systemctl daemon-reload
 systemctl restart slurmd
-ssh $HEADNODE "sudo systemctl restart slurmctld"
 
