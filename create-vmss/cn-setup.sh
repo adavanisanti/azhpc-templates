@@ -6,6 +6,8 @@ set -e
 HEADNODE=$1
 USER=$2
 
+# Add script for generating hostfile
+
 sed -i 's/^ResourceDisk.MountPoint=\/mnt\/resource$/ResourceDisk.MountPoint=\/mnt\/local_resource/g' /etc/waagent.conf
 #umount /mnt/resource
 
@@ -24,7 +26,15 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Start slurmd
 # systemctl restart slurmd
-systemctl restart munge
+
 # Load modules, Install miniconda, intel-TF
 echo `eval whoami` >> /home/$USER/whoami.log
+
+cp /home/$USER/scripts/slurmd.service /etc/systemd/system/
+echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
+echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/cluster.conf
+
+# Restart munge slurmd
+systemctl restart munge
+systemctl restart slurmd
 

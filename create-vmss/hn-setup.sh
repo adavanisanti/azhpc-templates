@@ -27,7 +27,6 @@ systemctl enable nfs-server
 systemctl start rpcbind
 systemctl start nfs-server
 systemctl restart nfs-server
-systemctl restart slurmctld
 systemctl restart munge
 
 USER=$2
@@ -73,8 +72,9 @@ git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git
 cd azhpc-templates/create-vmss/scripts/
 mkdir -p /home/$USER/scripts
 cp -r * /home/$USER/scripts/
-chmod +x /home/$USER/scripts/*
+chmod +x /home/$USER/scripts/slurm.conf.sh
 chown $USER:$USER /home/$USER/scripts
-cd / && rm -rf /tmp/*
 
-touch /home/$USER/ravi-edits 
+bash /home/$USER/scripts/slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
+cp /home/$USER/scripts/slurmctld.service /etc/systemd/system/
+systemctl restart slurmctld

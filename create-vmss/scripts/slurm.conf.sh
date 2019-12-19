@@ -98,4 +98,6 @@ AccountingStorageUser=slurm
 GresTypes=gpu
 DefMemPerNode=1024
 PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
+
+Include /mnt/resource/cluster.conf
 EOF
