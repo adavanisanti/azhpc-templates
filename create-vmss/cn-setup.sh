@@ -34,7 +34,7 @@ cp /home/$USER/scripts/slurmctld.service /etc/systemd/system/
 cp /home/$USER/scripts/slurmd.service /etc/systemd/system/
 
 echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
-echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/cluster.conf
+echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/slurm/cluster.conf
 
 # Restart munge slurmd
 #systemctl daemon-reload
