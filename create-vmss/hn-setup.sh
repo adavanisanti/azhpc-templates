@@ -77,4 +77,7 @@ chown $USER:$USER /home/$USER/scripts
 
 bash /home/$USER/scripts/slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /home/$USER/scripts/slurmctld.service /etc/systemd/system/
+
+# Daemon reload and restart slurmctld
+systemctl daemon-reload
 systemctl restart slurmctld

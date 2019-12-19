@@ -35,6 +35,7 @@ echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
 echo `python /home/$USER/scripts/generate_node_conf.py` >> /mnt/resource/cluster.conf
 
 # Restart munge slurmd
+systemctl daemon-reload
 systemctl restart munge
 systemctl restart slurmd
 
