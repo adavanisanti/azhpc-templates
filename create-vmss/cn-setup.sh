@@ -36,6 +36,6 @@ echo `python /home/$USER/azhpc-templates/create-vmss/scripts/generate_node_conf.
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
 # Restart munge slurmd
-systemctl daemon-reload
-systemctl restart slurmd
+# systemctl daemon-reload
+# systemctl restart slurmd
 
