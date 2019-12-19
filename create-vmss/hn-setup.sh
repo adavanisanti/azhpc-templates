@@ -62,7 +62,8 @@ chown $USER:$USER /home/$USER/azhpc-templates/create-vmss/scripts/
 bash slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
+touch /mnt/resource/slurm/cluster.conf
 # Daemon reload and restart slurmctld
 # systemctl daemon-reload
 #systemctl restart slurmdbd
-#systemctl restart slurmctld
+systemctl restart slurmctld
