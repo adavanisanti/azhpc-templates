@@ -1,6 +1,7 @@
 #!/bin/bash
 
 scriptUri=$1
+USER=$2
 githubUser=$(echo "$scriptUri" | cut -d'/' -f4)
 githubRepo=$(echo "$scriptUri" | cut -d'/' -f5)
 githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
