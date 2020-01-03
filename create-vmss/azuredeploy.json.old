@@ -2,21 +2,8 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"Master VM SKU Type": {
-			"defaultValue": "Standard_B2ms",
-			"allowedValues": [
-				"Standard_HC44rs",
-				"Standard_HB60rs",
-				"Standard_HB120rs_v2",
-				"Standard_B2ms"
-			],
-			"type": "String",
-			"metadata": {
-				"description": "raviii-Which instance would you like to deploy to? Not all VMs are available in all regions"
-			}
-		},
 		"VM SKU Type": {
-			"defaultValue": "Standard_HC44rs",
+			"defaultValue": "Standard_B2ms",
 			"allowedValues": [
 				"Standard_HC44rs",
 				"Standard_HB60rs",
@@ -117,7 +104,6 @@
 		"computeApiVersion": "2016-04-30-preview",
 		"networkApiVersion": "2016-03-30",
 		"storageApiVersion": "2016-01-01",
-		"masterSKUType" : "[parameters('Master VM SKU Type')]",
 		"skuType": "[parameters('VM SKU Type')]"
 	},
 	"resources": [
@@ -234,7 +220,7 @@
 			"location": "[variables('resourceLocation')]",
 			"properties": {
 				"hardwareProfile": {
-					"vmSize": "[variables('masterSKUType')]"
+					"vmSize": "[variables('skuType')]"
 				},
 				"osProfile": {
 					"computerName": "[variables('jumpBoxName')]",
