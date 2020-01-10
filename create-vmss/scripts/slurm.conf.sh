@@ -30,7 +30,7 @@ SwitchType=switch/none
 MpiDefault=none
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmd.pid
-ProctrackType=proctrack/cgroup
+#ProctrackType=proctrack/cgroup
 PluginDir=/usr/lib/slurm
 #FirstJobId=
 ReturnToService=1
@@ -45,7 +45,7 @@ ReturnToService=1
 #SrunEpilog=
 #TaskProlog=
 #TaskEpilog=
-TaskPlugin=task/cgroup
+#TaskPlugin=task/cgroup
 #TrackWCKey=no
 #TreeWidth=50
 #TmpFS=
@@ -83,7 +83,7 @@ JobCompType=jobcomp/none
 #JobCompLoc=
 #
 # ACCOUNTING
-JobAcctGatherType=jobacct_gather/cgroup
+#JobAcctGatherType=jobacct_gather/cgroup
 #JobAcctGatherFrequency=30
 #
 AccountingStorageTRES=gres/gpu
