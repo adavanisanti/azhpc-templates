@@ -86,7 +86,7 @@ JobCompType=jobcomp/none
 #JobAcctGatherType=jobacct_gather/cgroup
 #JobAcctGatherFrequency=30
 #
-AccountingStorageTRES=gres/gpu
+#AccountingStorageTRES=gres/gpu
 DebugFlags=CPU_Bind,gres
 AccountingStorageType=accounting_storage/slurmdbd
 AccountingStorageHost=localhost
@@ -95,7 +95,7 @@ AccountingStoragePass=/var/run/munge/munge.socket.2
 AccountingStorageUser=slurm
 #
 # COMPUTE NODES
-GresTypes=gpu
+#GresTypes=gpu
 DefMemPerNode=1024
 PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
 
