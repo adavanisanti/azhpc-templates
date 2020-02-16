@@ -18,8 +18,8 @@ chmod a+rwx /mnt/resource
 
 # Host NFS
 cat << EOF >> /etc/exports
-/home $localip.*(rw,sync,no_root_squash,no_all_squash)
-/mnt/resource $localip.*(rw,sync,no_root_squash,no_all_squash)
+/home $localip.*(rw,sync,no_root_squash,no_all_squash,subtree_check)
+/mnt/resource $localip.*(rw,sync,no_root_squash,no_all_squash,subtree_check)
 EOF
 
 mkdir -p /mnt/resource/slurm
