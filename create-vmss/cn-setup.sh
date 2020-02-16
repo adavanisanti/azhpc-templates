@@ -45,7 +45,6 @@ chmod +x /etc/rc.local
 
 chown $USER:$USER /home/$USER/azhpc-templates/create-vmss/scripts/
 
-bash slurm.conf.sh >> /mnt/resource/slurm/slurm.conf
 cp /mnt/resource/slurm/slurm.conf /etc/slurm/
 
 echo "NodeName=`hostname -s`" >> /etc/slurm/gres.conf
