@@ -13,7 +13,7 @@ sed -i 's/^ResourceDisk.MountPoint=\/mnt\/resource$/ResourceDisk.MountPoint=\/mn
 
 mkdir -p /mnt/resource/
 
-cat << EOF >> /etc/fstab
+cat << EOF >> /etc/exports
 $HEADNODE:/home    /home   nfs defaults 0 0
 $HEADNODE:/mnt/resource/    /mnt/resource/   nfs defaults 0 0
 EOF
