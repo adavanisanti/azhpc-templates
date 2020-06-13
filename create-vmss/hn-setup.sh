@@ -58,8 +58,8 @@ cd azhpc-templates/create-vmss/scripts/
 chmod +x slurm.conf.sh
 
 # Add slurmctld restart in rc.local only on master node
-cp rc.local /etc/
-chmod +x /etc/rc.local
+#cp rc.local /etc/
+#chmod +x /etc/rc.local
 
 chown $USER:$USER /home/$USER/azhpc-templates/create-vmss/scripts/
 
