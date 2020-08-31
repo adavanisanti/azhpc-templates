@@ -17,7 +17,7 @@ chmod a+rwx /mnt/resource
 #apt-get -y update && apt-get install -y -q nfs-kernel-server nmap pdsh screen git curl libnss3
 
 # Host NFS
-cat << EOF >> /etc/exports
+cat << EOF > /etc/exports
 /home 10.0.2.0/24(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
 /mnt/resource 10.0.2.0/24(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
 EOF
